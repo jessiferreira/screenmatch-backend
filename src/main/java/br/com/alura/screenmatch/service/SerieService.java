@@ -27,9 +27,9 @@ public class SerieService {
     }
 
     private List<SerieDTO> converteDados(List<Serie> series) {
-      return series.stream()
-              .map(s -> new SerieDTO(s.getId(), s.getTitulo(), s.getTotalTemporadas(), s.getAvaliacao(), s.getGenero(), s.getAtores(), s.getPoster(), s.getSinopse()))
-              .collect(Collectors.toList());
+        return series.stream()
+                .map(s -> new SerieDTO(s.getId(), s.getTitulo(), s.getTotalTemporadas(), s.getAvaliacao(), s.getGenero(), s.getAtores(), s.getPoster(), s.getSinopse()))
+                .collect(Collectors.toList());
     }
 
     public List<SerieDTO> obterLancamentos() {
@@ -69,4 +69,13 @@ public class SerieService {
         Categoria categoria = Categoria.fromPortugues(nomeGenero);
         return converteDados(repositorio.findByGenero(categoria));
     }
+
+    public List<EpisodioDTO> obterTopEpisodios(Long id) {
+        var serie = repositorio.findById(id).get();
+        return repositorio.topEpisodiosPorSerie(serie)
+                .stream()
+                .map(e -> new EpisodioDTO(e.getTemporada(), e.getNumeroEpisodio(), e.getTitulo()))
+                .collect(Collectors.toList());
+    }
+
 }

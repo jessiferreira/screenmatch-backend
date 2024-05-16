@@ -15,12 +15,12 @@ import java.util.List;
 @RequestMapping("/series")
 public class SerieController {
 
-   @Autowired
-   private SerieService servico;
+    @Autowired
+    private SerieService servico;
 
     @GetMapping
     public List<SerieDTO> obterSeries() {
-       return servico.obterTodasAsSeries();
+        return servico.obterTodasAsSeries();
     }
 
     @GetMapping("/top5")
@@ -39,17 +39,23 @@ public class SerieController {
     }
 
     @GetMapping("/{id}/temporadas/todas")
-    public List<EpisodioDTO> obterTodasTemporadas(@PathVariable Long id){
+    public List<EpisodioDTO> obterTodasTemporadas(@PathVariable Long id) {
         return servico.obterTodasTemporadas(id);
     }
 
     @GetMapping("/{id}/temporadas/{numero}")
-    public List<EpisodioDTO> obterTemporadasPorNumero(@PathVariable Long id, @PathVariable Long numero){
+    public List<EpisodioDTO> obterTemporadasPorNumero(@PathVariable Long id, @PathVariable Long numero) {
         return servico.obterTemporadasPorNumero(id, numero);
     }
 
     @GetMapping("/categoria/{nomeGenero}")
-    public List<SerieDTO> obterSeriesPorCategoria(@PathVariable String nomeGenero){
+    public List<SerieDTO> obterSeriesPorCategoria(@PathVariable String nomeGenero) {
         return servico.obterSeriesPorCategoria(nomeGenero);
     }
+
+    @GetMapping("/{id}/temporadas/top")
+    public List<EpisodioDTO> obterTopEpisodios(@PathVariable Long id){
+        return servico.obterTopEpisodios(id);
+    }
+
 }
